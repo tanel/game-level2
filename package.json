@@ -1,0 +1,28 @@
+{
+  "name": "typewriter",
+  "version": "1.0.0",
+  "description": "Art project involving a new way to type...",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lytecyde/typewriter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lytecyde/typewriter/issues"
+  },
+  "homepage": "https://github.com/Lytecyde/typewriter#readme",
+  "dependencies": {
+    "csslint": "^1.0.5",
+    "html-minifier": "^3.5.12",
+    "jshint": "^2.9.5",
+    "npm": "^5.8.0"
+  }
+}
