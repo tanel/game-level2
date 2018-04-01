@@ -9,9 +9,9 @@ window.app.code = function (s) {
 };
 
 window.app.handleStream = function (stream) {
-    var context = new AudioContext();
-    var source = context.createMediaStreamSource(stream);
-    var processor = context.createScriptProcessor(1024, 1, 1);
+    var context = new AudioContext(),
+    	source = context.createMediaStreamSource(stream),
+    	processor = context.createScriptProcessor(1024, 1, 1);
 
     source.connect(processor);
     processor.connect(context.destination);
