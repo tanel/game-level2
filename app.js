@@ -62,4 +62,3 @@ window.app.draw = function () {
     ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
     ctx.stroke();	    
 };
-ope
