@@ -39,21 +39,26 @@ window.onload = function () {
 };
 
 window.app.draw = function () {
-  	var canvas = document.getElementById('canvas');
-  	var radius = window.app.volume;
+  	var canvas = document.getElementById('canvas'),
+  		radius = window.app.volume;
+  	
   	if (canvas.getContext) {
-    	var ctx = canvas.getContext('2d');
-		
-		//ctx.clearRect(0, 0, 480, 640);
-	    
-	    ctx.beginPath();
-	    ctx.arc(75, 75, radius, 0, Math.PI * 2, true); // Outer circle
-	    ctx.moveTo(110, 75);
-	    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
-	    ctx.moveTo(65, 65);
-	    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
-	    ctx.moveTo(95, 65);
-	    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
-	    ctx.stroke();	    
+  		return;
   	}
-}
+
+	var ctx = canvas.getContext('2d');
+
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = 'rgba(255,255,255,1)';
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(75, 75, radius, 0, Math.PI * 2, true); // Outer circle
+    ctx.moveTo(110, 75);
+    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
+    ctx.moveTo(65, 65);
+    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
+    ctx.moveTo(95, 65);
+    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.stroke();	    
+};
