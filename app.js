@@ -42,7 +42,7 @@ window.app.draw = function () {
   	var canvas = document.getElementById('canvas'),
   		radius = window.app.volume;
   	
-  	if (canvas.getContext) {
+  	if (!canvas.getContext) {
   		return;
   	}
 
@@ -62,3 +62,4 @@ window.app.draw = function () {
     ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
     ctx.stroke();	    
 };
+ope
