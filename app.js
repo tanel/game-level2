@@ -2,6 +2,7 @@ window.app = {};
 
 window.app.canvas = null;
 window.app.volume = 0;
+window.app.background = 'rgba(255,255,255,1)';
 window.app.color = 'rgba(40,40,40,1)';
 window.app.chosenColors = [
 	'rgba(0,0,0,1)',	
@@ -36,23 +37,26 @@ window.app.handleStream = function (stream) {
 		
 		window.app.volume = rms * 100;
 
+		window.app.handleAudioInput();
+
 		window.app.draw();
 	};
- };
-
-window.onload = function () {
-	window.app.canvas = document.getElementById('canvas');
-
-	window.setInterval(window.app.changeColor, 3500);
-
-	navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(window.app.handleStream);
 };
 
 window.app.changeColor = function () {
-	window.app.color = window.app.chosenColors[Math.floor(Math.random()*Math.floor(window.app.chosenColors.length))];
+	window.app.color = window.app.randomColor(); 
+};
+
+window.app.randomColor = function () {
+	return window.app.chosenColors[Math.floor(Math.random()*Math.floor(window.app.chosenColors.length))];
 };
 
 window.app.draw = function () {
+	if (window.app.color === window.app.lastColor &&
+		window.app.background === window.app.lastBackground) {
+		return;
+	}
+
   	var canvas = window.app.canvas;
   	if (!canvas.getContext) {
   		return;
@@ -61,10 +65,29 @@ window.app.draw = function () {
 	var ctx = canvas.getContext('2d');
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = 'rgba(255,255,255,1)';
+	ctx.fillStyle = window.app.background;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = window.app.color;
 	ctx.fillRect(window.app.canvas.height/2, window.app.canvas.width/2, 100, 100);
-    ctx.stroke();	    
+    ctx.stroke();
+
+    window.app.lastColor = window.app.color;
+    window.app.lastBackground = window.app.background;	    
+};
+
+window.app.handleAudioInput = function () {
+	if (window.app.volume < 30.0) {
+		return;
+	}
+
+	window.app.background = window.app.randomColor();
+};
+
+window.onload = function () {
+	window.app.canvas = document.getElementById('canvas');
+
+	window.setInterval(window.app.changeColor, 3500);
+
+	navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(window.app.handleStream);
 };
