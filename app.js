@@ -12,6 +12,7 @@ window.app.chosenColors = [
 	'rgba(51,221,0,1)',
 	'rgba(17,51,204,1)',
 	'rgba(34,0,102,1)',
+	'rgba(200, 162, 200, 1)',
 	'rgba(51,0,68,1)'
 ];
 
@@ -68,13 +69,18 @@ window.app.draw = function () {
 	ctx.fillStyle = window.app.background;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = window.app.color;
-	ctx.fillRect(window.app.canvas.height/2, window.app.canvas.width/2, 100, 100);
+    window.app.rectangle(100, 100, ctx);
     ctx.stroke();
-
+    
     window.app.lastColor = window.app.color;
     window.app.lastBackground = window.app.background;	    
 };
+
+window.app.rectangle = function (var x, var y, var ctx) {
+	ctx.fillStyle = window.app.color;
+	ctx.fillRect(x, y, 100, 100);
+    
+}
 
 window.app.handleAudioInput = function () {
 	if (window.app.volume < 30.0) {
