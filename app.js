@@ -1,8 +1,17 @@
 window.app = {};
 
 window.app.volume = 0;
-window.app.randomPreselection = ath.floor(Math.random() * Math.floor(254));
-window.app.chosenColor = 'rgba(40,142,142,1)';
+window.app.color = 'rgba(40,40,40,1)';
+window.app.chosenColors = [
+	'rgba(0,0,0,1)',	
+	'rgba(209,0,0,1)',
+	'rgba(255,102,34,1)',
+	'rgba(255,218,33,1)',
+	'rgba(51,221,0,1)',
+	'rgba(17,51,204,1)',
+	'rgba(34,0,102,1)',
+	'rgba(51,0,68,1)'
+];
 
 window.app.code = function (s) {
     return s.replace(/[a-zA-Z]/g, function (c) {
@@ -37,7 +46,12 @@ window.app.handleStream = function (stream) {
  };
 
 window.onload = function () {
+	window.setInterval(window.app.onInterval, 3500);
 	navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(window.app.handleStream);
+};
+
+window.app.onInterval = function () {
+	window.app.color = window.app.chosenColors[Math.floor(Math.random()*Math.floor(window.app.chosenColors.length))];
 };
 
 window.app.draw = function () {
@@ -53,7 +67,7 @@ window.app.draw = function () {
 	ctx.fillStyle = 'rgba(255,255,255,1)';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = window.app.chosenColor;
+    ctx.fillStyle = window.app.color;
 	ctx.fillRect(60, 60, 50, 50);
     ctx.stroke();	    
 };
