@@ -4,6 +4,7 @@ window.app.canvas = null;
 window.app.volume = 0;
 window.app.maxRectangles = 3;
 window.app.rectangleCount = 0;
+window.app.drawRectangle = false;
 window.app.background = 'rgba(255,255,255,1)';
 window.app.color = 'rgba(40,40,40,1)';
 window.app.ctx = null;
@@ -65,14 +66,18 @@ window.app.draw = function () {
   	if (!canvas.getContext) {
   		return;
   	}
-  	window.app.ctx =canvas.getContext('2d');
+  	window.app.ctx = canvas.getContext('2d');
     var ctx = window.app.ctx;
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.fillStyle = window.app.background;
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    window.app.rectangle(100, 100, ctx);
-    ctx.stroke();
+	var i = 1;
+    do {
+    	window.app.rectangle( 100 * i, 100, ctx);
+    	i++;
+    } while (i <= window.app.rectangleCount);
+    
+	ctx.stroke();
 
     window.app.lastColor = window.app.color;
     window.app.lastBackground = window.app.background;	    
@@ -89,9 +94,6 @@ window.app.handleAudioInput = function () {
 	}
 
 	if (window.app.color === window.app.background) {
-		window.app.rectangle(100*window.app.rectangleCount, 
-			100, 
-			window.app.ctx);
 		window.app.rectangleCount++; 
 	}
 
