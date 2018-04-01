@@ -14,10 +14,21 @@ window.app.handleStream = function (stream) {
     source.connect(processor);
     processor.connect(context.destination);
 
-    processor.onaudioprocess = function(e) {
-      // Do something with the data, i.e Convert this to WAV
-		console.log(e.inputBuffer);
-    };
+    processor.onaudioprocess = function (e) {
+		var input = e.inputBuffer.getChannelData(0),
+			len = input.length,
+			total = 0,
+			i = 0;
+		
+		while (i < len) {
+			total += Math.abs(input[i++]);
+		}
+		
+		var rms = Math.sqrt(total / len),
+			volume = rms * 100;
+
+		console.log(volume);
+	};
  };
 
 window.onload = function () {
