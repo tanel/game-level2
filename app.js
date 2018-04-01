@@ -1,6 +1,7 @@
 window.app = {};
 
 window.app.volume = 0;
+window.app.randomPreselection = ath.floor(Math.random() * Math.floor(254));
 window.app.chosenColor = 'rgba(40,142,142,1)';
 
 window.app.code = function (s) {
