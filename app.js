@@ -1,5 +1,6 @@
 window.app = {};
 
+window.app.canvas = null;
 window.app.volume = 0;
 window.app.color = 'rgba(40,40,40,1)';
 window.app.chosenColors = [
@@ -12,12 +13,6 @@ window.app.chosenColors = [
 	'rgba(34,0,102,1)',
 	'rgba(51,0,68,1)'
 ];
-
-window.app.code = function (s) {
-    return s.replace(/[a-zA-Z]/g, function (c) {
-        return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
-    });
-};
 
 window.app.handleStream = function (stream) {
     var context = new AudioContext(),
@@ -46,17 +41,19 @@ window.app.handleStream = function (stream) {
  };
 
 window.onload = function () {
-	window.setInterval(window.app.onInterval, 3500);
+	window.app.canvas = document.getElementById('canvas');
+
+	window.setInterval(window.app.changeColor, 3500);
+
 	navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(window.app.handleStream);
 };
 
-window.app.onInterval = function () {
+window.app.changeColor = function () {
 	window.app.color = window.app.chosenColors[Math.floor(Math.random()*Math.floor(window.app.chosenColors.length))];
 };
 
 window.app.draw = function () {
-  	var canvas = document.getElementById('canvas');
-
+  	var canvas = window.app.canvas;
   	if (!canvas.getContext) {
   		return;
   	}
@@ -68,6 +65,6 @@ window.app.draw = function () {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = window.app.color;
-	ctx.fillRect(60, 60, 50, 50);
+	ctx.fillRect(window.app.canvas.height/2, window.app.canvas.width/2, 100, 100);
     ctx.stroke();	    
 };
