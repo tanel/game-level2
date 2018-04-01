@@ -26,8 +26,6 @@ window.app.handleStream = function (stream) {
 		
 		var rms = Math.sqrt(total / len),
 			volume = rms * 100;
-
-		console.log(volume);
 	};
  };
 
