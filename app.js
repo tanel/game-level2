@@ -1,6 +1,7 @@
 window.app = {};
 
 window.app.volume = 0;
+window.app.chosenColor = 'rgba(40,142,142,1)';
 
 window.app.code = function (s) {
     return s.replace(/[a-zA-Z]/g, function (c) {
@@ -39,9 +40,8 @@ window.onload = function () {
 };
 
 window.app.draw = function () {
-  	var canvas = document.getElementById('canvas'),
-  		radius = window.app.volume;
-  	
+  	var canvas = document.getElementById('canvas');
+
   	if (!canvas.getContext) {
   		return;
   	}
@@ -52,13 +52,7 @@ window.app.draw = function () {
 	ctx.fillStyle = 'rgba(255,255,255,1)';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.beginPath();
-    ctx.arc(75, 75, radius, 0, Math.PI * 2, true); // Outer circle
-    ctx.moveTo(110, 75);
-    ctx.arc(75, 75, 35, 0, Math.PI, false);  // Mouth (clockwise)
-    ctx.moveTo(65, 65);
-    ctx.arc(60, 65, 5, 0, Math.PI * 2, true);  // Left eye
-    ctx.moveTo(95, 65);
-    ctx.arc(90, 65, 5, 0, Math.PI * 2, true);  // Right eye
+    ctx.fillStyle = window.app.chosenColor;
+	ctx.fillRect(60, 60, 50, 50);
     ctx.stroke();	    
 };
